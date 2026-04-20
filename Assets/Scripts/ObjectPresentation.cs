@@ -5,7 +5,6 @@ namespace Assets.Scripts
 {
     public class ObjectPresentation : MonoBehaviour
     {
-
         private IMoved _moved;
 
         public void Update()

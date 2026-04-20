@@ -6,14 +6,21 @@ using Assets.Scripts;
 
 public class AsteroidSpawner : MonoBehaviour
 {
-    [Inject] private DiContainer _container;
-    [Inject] private ConstMoveFactory _constMoveFactory;
+    private DiContainer _container;
+    private ConstMoveFactory _constMoveFactory;
 
     [SerializeField] private GameObject _asteroidPrefab;
 
     public void OnEnable()
     {
         Spawn(Vector2.zero);
+    }
+
+    [Inject]
+    public void Constract(DiContainer container, ConstMoveFactory constMoveFactory)
+    {
+        _container = container;
+        _constMoveFactory = constMoveFactory;
     }
 
     public AsteroidPresentation Spawn(Vector3 position)
