@@ -4,35 +4,30 @@ using UnityEngine;
 using Zenject;
 using Assets.Scripts;
 
-public class AsteroidSpawner : MonoBehaviour
+public class AsteroidSpawner
 {
     private DiContainer _container;
     private ConstMoveFactory _constMoveFactory;
 
-    [SerializeField] private GameObject _asteroidPrefab;
+    private AsteroidPresentation _asteroidPresentation;
 
-    public void OnEnable()
-    {
-        Spawn(Vector2.zero);
-    }
-
-    [Inject]
-    public void Constract(DiContainer container, ConstMoveFactory constMoveFactory)
+    public AsteroidSpawner(DiContainer container, ConstMoveFactory constMoveFactory, AsteroidPresentation asteroidPresentation)
     {
         _container = container;
         _constMoveFactory = constMoveFactory;
+        _asteroidPresentation = asteroidPresentation;
     }
 
-    public AsteroidPresentation Spawn(Vector3 position)
+    public AsteroidPresentation Spawn(Vector3 position, Vector2 direction)
     {
-        var move = _constMoveFactory.Create(position);
+        var moveParams = new MoveParams(position, direction, 1f);
+        var move = _constMoveFactory.Create(moveParams);
         var asteroid = _container.InstantiatePrefabForComponent<AsteroidPresentation>(
-            _asteroidPrefab,
+            _asteroidPresentation,
             position,
             Quaternion.identity,
             null
         );
-
         asteroid.SetMoved(move);
         return asteroid;
     }
@@ -40,14 +35,6 @@ public class AsteroidSpawner : MonoBehaviour
 
 public interface IMovedFactory<T> where T : IMoved
 {
-    T Create(Vector2 pos);
-}
-
-public class ConstMoveFactory : IMovedFactory<ConstSpeedMovedObject>
-{
-    public ConstSpeedMovedObject Create(Vector2 pos)
-    {
-        return new ConstSpeedMovedObject(pos, Vector2.up, 1f);
-    }
+    T Create(MoveParams moveParams);
 }
 
