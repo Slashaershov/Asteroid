@@ -13,7 +13,7 @@ namespace Assets.Scripts
         private float _accelerationMultiplier;
         private Vector2 _direction;
 
-        public PlayerMoved(PlayerConfig config) : base(Vector2.zero, BASE_MOVE_SPEED)
+        public PlayerMoved(PlayerConfig config) : base(new MoveParams(Vector2.zero, Vector2.zero, 1))
         {
             _accelerationMultiplier = config._accelerationMultiplier;
             _maxSpeed = config._maxSpeed;
@@ -39,6 +39,4 @@ namespace Assets.Scripts
             return _currentSpeed;
         }
     }
-
-    //public class PlayerConfig()
 }

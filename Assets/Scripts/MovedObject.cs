@@ -6,15 +6,15 @@ namespace Assets.Scripts
 {
     public abstract class MovedObject : IMoved
     {
-        protected const float BASE_MOVE_SPEED = 0;
+        protected const float BASE_MOVE_SPEED = 1;
         protected float baseSpeed;
         protected Vector2 position;
         public Vector2 GetPosition() => position;
 
-        public MovedObject(Vector2 startPos, float baseSpeed)
+        public MovedObject(MoveParams moveParam)
         {
-            this.baseSpeed = baseSpeed;
-            position = startPos;
+            this.baseSpeed = moveParam.speed;
+            position = moveParam.startPos;
         }
 
         public void UpdateMovement(float duration)

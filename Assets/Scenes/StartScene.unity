@@ -382,7 +382,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: -7034286551265475962, guid: 82427508449d0854b8c42bbfb31f0373, type: 3}
-  _asteroidPresentation: {fileID: 2950387293296968386, guid: 272327ea5eeab714a884c42da8f7ec3a, type: 3}
+  asteroidPrefab: {fileID: 2950387293296968386, guid: 272327ea5eeab714a884c42da8f7ec3a, type: 3}
+  flyTapePrefab: {fileID: 6357134599987067807, guid: 7ddd4e61982963a49b5795c463760e74, type: 3}
 --- !u!1 &1216364002
 GameObject:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ public class ConstMoveFactory : IMovedFactory<ConstSpeedMovedObject>
 {
     public ConstSpeedMovedObject Create(MoveParams moveParams)
     {
-        return new ConstSpeedMovedObject(moveParams.startPos, moveParams.direction, 1f);
+        return new ConstSpeedMovedObject(moveParams);
     }
 }
 

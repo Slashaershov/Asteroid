@@ -5,29 +5,41 @@ using Assets.Scripts;
 public class BaseInstaller : MonoInstaller
 {
     public PlayerPresentation playerPrefab;
-    public AsteroidPresentation _asteroidPresentation;
+    public AsteroidPresentation asteroidPrefab;
+    public FlyTapePresentation flyTapePrefab;
+
+    private PlayerMoved _playerMoved;
+
+
     public override void InstallBindings()
     {
         BindPlayer();
         BindAstro();
+        BindFlyTape();
     }
 
     private void BindPlayer()
     {
         var conf = new PlayerConfig();
-        var pl = new PlayerMoved(conf);
-        Container.Bind<PlayerMoved>().FromInstance(pl).AsSingle();
-        Container.Bind<IMoved>().FromInstance(pl).WhenInjectedInto<PlayerPresentation>();
+        _playerMoved = new PlayerMoved(conf);
+
+        Container.Bind<PlayerMoved>().FromInstance(_playerMoved).AsSingle();
+        Container.Bind<IMoved>().FromInstance(_playerMoved).WhenInjectedInto<PlayerPresentation>();
+        Container.Bind<MovedObject>().FromInstance(_playerMoved).AsSingle();
     }
 
     private void BindAstro()
     {
         Container.Bind<ConstMoveFactory>().AsSingle();
-        Container.Bind<AsteroidPresentation>().FromInstance(_asteroidPresentation);
+        Container.BindInstance(asteroidPrefab).WhenInjectedInto<AsteroidSpawner>();
         Container.Bind<AsteroidSpawner>().AsSingle();
-        //Container.Bind<AsteroidSpawner>()
-        //         .AsSingle()
-        //         .OnInstantiated<AsteroidSpawner>(null);
+    }
+
+    private void BindFlyTape()
+    {
+        Container.Bind<FlyTapeMoveFactory>().AsSingle();
+        Container.BindInstance(flyTapePrefab).WhenInjectedInto<FlyTapeSpawner>();
+        Container.Bind<FlyTapeSpawner>().AsSingle();
     }
 
 }

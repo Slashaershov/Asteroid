@@ -8,13 +8,15 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private List<Transform> _points;
     
     private float _nextSpawnTime;
-    private float _spawnDuration = 2f;
-    private AsteroidSpawner _asteroidSpawner;
+    private float _spawnInterval  = 2f;
+    private List<IEnemySpawner> _spawners;
 
     [Inject]
-    public void Construct(AsteroidSpawner asteroidSpawner)
+    public void Construct(AsteroidSpawner asteroidSpawner, FlyTapeSpawner flyTapeSpawner)
     {
-        _asteroidSpawner = asteroidSpawner;
+        _spawners = new List<IEnemySpawner>();
+        _spawners.Add(asteroidSpawner);
+        _spawners.Add(flyTapeSpawner);
     }
 
     private void Update()
@@ -26,7 +28,7 @@ public class EnemySpawner : MonoBehaviour
     {
         if (_nextSpawnTime < Time.time)
         {
-            _nextSpawnTime = Time.time + _spawnDuration;
+            _nextSpawnTime = Time.time + _spawnInterval ;
             SpawnEnemy();
         }
 
@@ -34,14 +36,13 @@ public class EnemySpawner : MonoBehaviour
 
     private void SpawnEnemy()
     {
-        if (_points == null || _points.Count == 0) return;
+        if (_spawners.Count == 0 || _points.Count == 0) return;
+
         var randomPoint = _points[Random.Range(0, _points.Count)];
-        var asteroid = _asteroidSpawner.Spawn(randomPoint.position, -randomPoint.position);
+        var spawner = _spawners[Random.Range(0, _spawners.Count)];
+        var moveParams = new MoveParams(randomPoint.position, -randomPoint.position, 1f);
+        var enemy = spawner.Spawn(moveParams);
     }
     
 }
 
-public enum EnemyType
-{
-
-}

@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 using Assets.Scripts;
 
-public class AsteroidSpawner
+public class AsteroidSpawner: IEnemySpawner
 {
     private DiContainer _container;
     private ConstMoveFactory _constMoveFactory;
@@ -18,13 +18,12 @@ public class AsteroidSpawner
         _asteroidPresentation = asteroidPresentation;
     }
 
-    public AsteroidPresentation Spawn(Vector3 position, Vector2 direction)
+    public ObjectPresentation Spawn(MoveParams moveParams)
     {
-        var moveParams = new MoveParams(position, direction, 1f);
         var move = _constMoveFactory.Create(moveParams);
         var asteroid = _container.InstantiatePrefabForComponent<AsteroidPresentation>(
             _asteroidPresentation,
-            position,
+            moveParams.startPos,
             Quaternion.identity,
             null
         );
