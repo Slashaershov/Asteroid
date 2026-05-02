@@ -9,23 +9,24 @@ namespace Assets.Scripts
     {
         private PlayerMoved _player;
         private ShootingComponent _shooter;
-        [SerializeField] private float _maxSpeed = 3f;
-        [SerializeField] private float _accelerationMultiplier = 1f;
+        private LaserActivator _laserActivator;
 
         private const KeyCode _upKey = KeyCode.W;
         private const KeyCode _downKey = KeyCode.S;
         private const KeyCode _leftKey = KeyCode.A;
         private const KeyCode _rightKey = KeyCode.D;
         private const KeyCode _shootKey = KeyCode.R;
+        private const KeyCode _laserKey = KeyCode.F;
 
 
         [Inject]
-        public void Construct(PlayerMoved moved, ShootingComponent shooter)
+        public void Construct(PlayerMoved moved, ShootingComponent shooter, LaserActivator laserActivator)
         {
             Debug.LogError("Constract 1");
             _player = moved; // new PlayerMoved(Vector2.zero, _maxSpeed, _accelerationMultiplier);
             Debug.LogError("Constract");
             _shooter = shooter;
+            _laserActivator = laserActivator;
         }
 
         public void Update()
@@ -37,6 +38,7 @@ namespace Assets.Scripts
         {
             UpdateMoving();
             UpdateShoot();
+            UpdateLaser();
         }
 
         private void UpdateMoving()
@@ -52,7 +54,20 @@ namespace Assets.Scripts
 
         private void UpdateShoot()
         {
-            _shooter.Shoot();
+            if (Input.GetKey(_shootKey)) 
+            { 
+                _shooter.Shoot(); 
+            }
+
+        }
+
+        private void UpdateLaser()
+        {
+            if (Input.GetKey(_laserKey))
+            {
+                _laserActivator.Activate();
+            }
+
         }
     }
 }

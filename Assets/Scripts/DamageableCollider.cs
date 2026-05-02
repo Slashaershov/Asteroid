@@ -7,30 +7,46 @@ public class DamageableCollider : MonoBehaviour
 {
     [SerializeField] private LayerMask _targetLayers;
     [SerializeField] private int _damageValue;
+    [SerializeField] private bool _hideAfterCollision;
     private DamageDealer _dealer;
     private Damageable _damageable;
 
     public void Awake()
     {
         _dealer = new DamageDealer(_damageValue);
+        _damageable = new Damageable(2, OnDie);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!IsInLayerMask(other.gameObject.layer, _targetLayers))
+        if (IsInLayerMask(other.gameObject.layer, _targetLayers))
         {
             _dealer.Damage(other.GetComponent<DamageableCollider>().Damage);
+            if (_hideAfterCollision)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 
     public void Damage(Damage dmg)
     {
-
+        _damageable.TryGetDamage(dmg);
     }
 
     private bool IsInLayerMask(int layer, LayerMask mask) //TODO: do extention
     {
         return (mask.value & (1 << layer)) != 0;
+    }
+
+    private void OnDie()
+    {
+        gameObject.SetActive(false);
+    }
+
+    private void HideSelf()
+    {
+        gameObject.SetActive(false);
     }
 
 }
@@ -90,10 +106,11 @@ public class Damageable
     private int _maxHp = 5;
     private Stats _stats;
 
-    public Damageable(int maxHp)
+
+    public Damageable(int maxHp, System.Action onDie)
     {
         _maxHp = maxHp;
-        _stats = new Stats(maxHp);
+        _stats = new Stats(maxHp, onDie);
     }
 
     public bool TryGetDamage(Damage dmg)

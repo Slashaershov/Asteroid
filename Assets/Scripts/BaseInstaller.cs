@@ -8,6 +8,7 @@ public class BaseInstaller : MonoInstaller
     public AsteroidPresentation asteroidPrefab;
     public ProjectilePresentation projectilePrefab;
     public FlyTapePresentation flyTapePrefab;
+    public float _laserReloadTime = 2f;
 
     private PlayerMoved _playerMoved;
 
@@ -19,6 +20,7 @@ public class BaseInstaller : MonoInstaller
         BindAstro();
         BindFlyTape();
         BindProjctile();
+        BindLaser();
     }
 
     private void BindPlayer()
@@ -42,7 +44,6 @@ public class BaseInstaller : MonoInstaller
     private void BindProjctile()
     {
         Container.BindInstance(projectilePrefab);
-
         Container.BindInstance(projectilePrefab).WhenInjectedInto<ProjectilePresentation>();
         Container.Bind<ProjectileSpawner>().AsSingle();
     }
@@ -54,6 +55,12 @@ public class BaseInstaller : MonoInstaller
         Container.Bind<FlyTapeSpawner>().AsSingle();
     }
 
+    private void BindLaser()
+    {
+        Container.Bind<LaserActivator>()
+            .AsSingle()
+            .WithArguments(_laserReloadTime);
+    }
 }
 
 public class PlayerConfig
