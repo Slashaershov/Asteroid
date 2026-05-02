@@ -6,9 +6,11 @@ public class BaseInstaller : MonoInstaller
 {
     public PlayerPresentation playerPrefab;
     public AsteroidPresentation asteroidPrefab;
+    public ProjectilePresentation projectilePrefab;
     public FlyTapePresentation flyTapePrefab;
 
     private PlayerMoved _playerMoved;
+
 
 
     public override void InstallBindings()
@@ -16,6 +18,7 @@ public class BaseInstaller : MonoInstaller
         BindPlayer();
         BindAstro();
         BindFlyTape();
+        BindProjctile();
     }
 
     private void BindPlayer()
@@ -26,6 +29,7 @@ public class BaseInstaller : MonoInstaller
         Container.Bind<PlayerMoved>().FromInstance(_playerMoved).AsSingle();
         Container.Bind<IMoved>().FromInstance(_playerMoved).WhenInjectedInto<PlayerPresentation>();
         Container.Bind<MovedObject>().FromInstance(_playerMoved).AsSingle();
+        Container.Bind<ShootingComponent>().AsSingle();
     }
 
     private void BindAstro()
@@ -33,6 +37,14 @@ public class BaseInstaller : MonoInstaller
         Container.Bind<ConstMoveFactory>().AsSingle();
         Container.BindInstance(asteroidPrefab).WhenInjectedInto<AsteroidSpawner>();
         Container.Bind<AsteroidSpawner>().AsSingle();
+    }    
+    
+    private void BindProjctile()
+    {
+        Container.BindInstance(projectilePrefab);
+
+        Container.BindInstance(projectilePrefab).WhenInjectedInto<ProjectilePresentation>();
+        Container.Bind<ProjectileSpawner>().AsSingle();
     }
 
     private void BindFlyTape()

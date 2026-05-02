@@ -93,9 +93,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 986358931597369339}
-  - component: {fileID: 3107785210849098472}
+  - component: {fileID: -1585815806686309295}
   m_Layer: 0
-  m_Name: PlayerPrefab
+  m_Name: Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,7 +117,7 @@ Transform:
   - {fileID: 7815674282297186759}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3107785210849098472
+--- !u!114 &-1585815806686309295
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,6 +126,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 1475709043200637795}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e39abe656c995646a56f875e777f82f, type: 3}
+  m_Script: {fileID: 11500000, guid: 478571ac4d669f9429147c499af87240, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

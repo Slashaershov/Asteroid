@@ -13,6 +13,7 @@ namespace Assets.Scripts
         private float _accelerationMultiplier;
         private Vector2 _direction;
 
+
         public PlayerMoved(PlayerConfig config) : base(new MoveParams(Vector2.zero, Vector2.zero, 1))
         {
             _accelerationMultiplier = config._accelerationMultiplier;

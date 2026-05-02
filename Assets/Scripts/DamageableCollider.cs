@@ -59,7 +59,7 @@ public class DamageDealer
         _damageValue = damageValue;
     }
 
-    public void Damage(System.Action<Damage> damageAction)
+    public void Damage(Action<Damage> damageAction)
     {
         var dmg = new Damage(_damageValue);
         damageAction?.Invoke(dmg);

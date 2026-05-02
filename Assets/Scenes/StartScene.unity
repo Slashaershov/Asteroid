@@ -381,8 +381,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4722d9bf759294ba1c1fd88634794a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPrefab: {fileID: -7034286551265475962, guid: 82427508449d0854b8c42bbfb31f0373, type: 3}
+  playerPrefab: {fileID: 3107785210849098472, guid: 82427508449d0854b8c42bbfb31f0373, type: 3}
   asteroidPrefab: {fileID: 2950387293296968386, guid: 272327ea5eeab714a884c42da8f7ec3a, type: 3}
+  projectilePrefab: {fileID: -1585815806686309295, guid: 51139bce5856f8d498340f85fc647dc8, type: 3}
   flyTapePrefab: {fileID: 6357134599987067807, guid: 7ddd4e61982963a49b5795c463760e74, type: 3}
 --- !u!1 &1216364002
 GameObject:
