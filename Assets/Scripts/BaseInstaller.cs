@@ -8,6 +8,8 @@ public class BaseInstaller : MonoInstaller
     public AsteroidPresentation asteroidPrefab;
     public ProjectilePresentation projectilePrefab;
     public FlyTapePresentation flyTapePrefab;
+
+
     public float _laserReloadTime = 2f;
 
     private PlayerMoved _playerMoved;
@@ -21,6 +23,12 @@ public class BaseInstaller : MonoInstaller
         BindFlyTape();
         BindProjctile();
         BindLaser();
+        BindSomething();
+    }
+
+    private void BindSomething()
+    {
+
     }
 
     private void BindPlayer()
